@@ -21,7 +21,7 @@ const plugins = PRODUCTION
     new webpack.optimize.UglifyJsPlugin(),
     new ExtractTextPlugin('style-[contenthash:10].css'),
     new HTMLWebpackPlugin({
-      template: 'index-template.html'
+      template: 'template.html'
     })
   ]
   :[
