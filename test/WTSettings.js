@@ -7,9 +7,6 @@ jsdom();
 import WTData from '../src/js/modules/WTData';
 
 suite('Settings Testing', () => {
-  // TODO do I need to teardown after each test?
-
-
 
   setup(done => {
     global.indexedDB = fakeIndexedDB;
