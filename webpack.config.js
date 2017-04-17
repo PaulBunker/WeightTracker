@@ -5,6 +5,8 @@ var HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
+console.log(PRODUCTION);
+
 
 const entry = PRODUCTION
   ? [
@@ -19,21 +21,23 @@ const entry = PRODUCTION
 const plugins = PRODUCTION
   ?[
     new webpack.optimize.UglifyJsPlugin(),
-    new ExtractTextPlugin('style-[contenthash:10].css'),
-    new HTMLWebpackPlugin({
-      template: 'template.html'
-    })
+    new ExtractTextPlugin('style-[contenthash:10].css')
   ]
   :[
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ];
 
-plugins.push(
+plugins.push.apply(plugins, [
   new webpack.DefinePlugin({
     DEVELOPMENT: JSON.stringify(DEVELOPMENT),
     PRODUCTION: JSON.stringify(PRODUCTION)
+  }),
+  new HTMLWebpackPlugin({
+    template: './src/index.html'
   })
-);
+]);
+
+
 
 const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
 
@@ -65,8 +69,8 @@ module.exports = {
     ],
   },
   output: {
-    path: path.join(__dirname, 'dist/', 'js/'),
-    publicPath: '/dist/',
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/',
     filename: PRODUCTION ? 'bundle.[hash:12].min.js' : 'bundle.js'
   }
 };

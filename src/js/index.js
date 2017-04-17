@@ -1,11 +1,10 @@
-import greeting from './modules/greeting';
+import WeightTracker from './modules/WeightTracker';
 
-var app = document.getElementsByTagName('body')[0];
-app.innerHTML = `<p>${greeting.paul}</p>`;
+var appContainer = document.getElementsByTagName('body')[0];
+new WeightTracker(appContainer);
 
-
-if (module.hot) {
-  module.hot.accept();
+if (DEVELOPMENT) {
+  if (module.hot) {
+    module.hot.accept();
+  }
 }
-
-
