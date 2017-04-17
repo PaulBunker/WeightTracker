@@ -6,7 +6,7 @@ jsdom();
 
 import WTData from '../src/js/modules/WTData';
 
-suite('Settings Testing', () => {
+suite('data Testing', () => {
 
   setup(done => {
     global.indexedDB = fakeIndexedDB;
@@ -23,16 +23,16 @@ suite('Settings Testing', () => {
   });
 
   test('Returns object', done => {
-    const settings = new WTData();
-    expect(settings).to.be.an('object');
+    const data = new WTData();
+    expect(data).to.be.an('object');
     done();
   });
 
   test('Add weight', done => {
-    const settings = new WTData();
-    settings.openDB(() => {
-      settings.inputWeight(123, (weight) => {
-        settings.datastore.close();
+    const data = new WTData();
+    data.openDB(() => {
+      data.inputWeight(123, (weight) => {
+        data.datastore.close();
         expect(weight.value).to.eql(123);
         done();
       });
@@ -41,10 +41,10 @@ suite('Settings Testing', () => {
 
   test('Fetch weights', done => {
     global.indexedDB = fakeIndexedDB;
-    const settings = new WTData();
-    settings.openDB(() => {
-      settings.fetchWeights( weights => {
-        settings.datastore.close();
+    const data = new WTData();
+    data.openDB(() => {
+      data.fetchWeights( weights => {
+        data.datastore.close();
         expect(weights.length).to.eql(0);
         done();
       });
@@ -53,11 +53,11 @@ suite('Settings Testing', () => {
 
   test('Insert and fetch weights', done => {
     global.indexedDB = fakeIndexedDB;
-    const settings = new WTData();
-    settings.openDB(() => {
-      settings.inputWeight(123, () => {
-        settings.fetchWeights( weights => {
-          settings.datastore.close();
+    const data = new WTData();
+    data.openDB(() => {
+      data.inputWeight(123, () => {
+        data.fetchWeights( weights => {
+          data.datastore.close();
           expect(weights.length).to.eql(1);
           done();
         });

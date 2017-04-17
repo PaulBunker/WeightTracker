@@ -1,13 +1,11 @@
 export default class WTGraphsView {
 
-  constructor(settings) {
-    this.element = document.createElement('div');
-
-    this.element.innerHTML = `
-      Goal <input type="text" />
+  constructor() {
+    this.node = document.createElement('div');
+    this.node.innerHTML = `
+      Graphs
     `;
 
-    return this.element;
   }
 
 }

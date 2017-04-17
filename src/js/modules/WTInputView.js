@@ -1,13 +1,36 @@
 export default class WTInputView {
 
-  constructor(settings) {
-    this.element = document.createElement('div');
+  constructor() {
+    this.weightInput;
+    this.weightForm;
+    this.onUpdateWeight = '';
+    this.node = document.createElement('div');
+    this.buildForms();
+  }
 
-    this.element.innerHTML = `
-      Goal <input type="text" />
+  buildForms(){
+    this.weightForm = document.createElement('form');
+
+    this.weightForm.innerHTML = `
+      <label for="weight">
+      Weightt
+        <input id="weight" type="number" />
+      </label>
     `;
 
-    return this.element;
+    const weightFragment = document.createDocumentFragment();
+    weightFragment.appendChild(this.weightForm);
+
+    this.weightInput = weightFragment.querySelector('#weight');
+    this.weightForm.action = '';
+    this.weightForm.onsubmit = this.handleWeightFormSubmit.bind(this);
+    this.node.appendChild(weightFragment);
+
+  }
+
+  handleWeightFormSubmit() {
+    this.onUpdateWeight(this.weightInput.value);
+    return(false);
   }
 
 }

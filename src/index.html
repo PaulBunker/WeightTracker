@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Weight Tracker</title>
+  <style>
+    .loading {
+      background:#ccc;
+    }
+    .loading:after {
+      content: "Loading...";
+      font-family:sans-serif;
+      display:block;
+      font-size:40px;
+      color:#000;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+    }
+  </style>
 </head>
-<body>
+<body class="loading">
   <div class="app"></div>
 </body>
 </html>

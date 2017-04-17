@@ -1,4 +1,4 @@
-import WTSettings from './WTSettings';
+import WTData from './WTdata';
 
 import WTMainView from './WTMainView';
 import WTGraphsView from './WTGraphsView';
@@ -8,28 +8,45 @@ export default class WeightTracker {
 
   constructor(element) {
     this.element = element;
-    this.getSettings();
+    this.data = new WTData();
+    this.data.openDB( () => {
+      this.data.fetchWeights( (w) => {
+        console.log(w);
+      });
+    });
+
     this.build();
+
+    this.attachHandlers();
 
   }
 
-  build(){
+  build() {
 
     this.mainView = new WTMainView();
     this.grapsView = new WTGraphsView();
     this.inputView = new WTInputView();
 
     const fragment = document.createDocumentFragment();
-    fragment.appendChild(this.mainView);
-    fragment.appendChild(this.grapsView);
-    fragment.appendChild(this.inputView);
+
+    fragment.appendChild(this.mainView.node);
+    fragment.appendChild(this.grapsView.node);
+    fragment.appendChild(this.inputView.node);
+
+    document.body.classList.remove('loading');
 
     this.element.appendChild(fragment);
 
   }
 
-  getSettings() {
-    console.log('settings');
-    this.settings = new WTSettings();
+  attachHandlers() {
+    this.inputView.onUpdateWeight = this.onUpdateWeight;
   }
+
+  onUpdateWeight(weight) {
+    debugger;
+    console.log(weight);
+    return false;
+  }
+
 }
