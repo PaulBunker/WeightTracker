@@ -3,7 +3,9 @@ export default class WTInputView {
   constructor() {
     this.weightInput;
     this.weightForm;
-    this.onUpdateWeight = '';
+
+    this.onUpdateWeight;
+
     this.node = document.createElement('div');
     this.buildForms();
   }
@@ -13,7 +15,7 @@ export default class WTInputView {
 
     this.weightForm.innerHTML = `
       <label for="weight">
-      Weightt
+        Weights
         <input id="weight" type="number" />
       </label>
     `;
@@ -30,7 +32,7 @@ export default class WTInputView {
 
   handleWeightFormSubmit() {
     this.onUpdateWeight(this.weightInput.value);
-    return(false);
+    return false;
   }
 
 }

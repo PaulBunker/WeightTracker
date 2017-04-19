@@ -10,13 +10,12 @@ export default class WeightTracker {
     this.element = element;
     this.data = new WTData();
     this.data.openDB( () => {
-      this.data.fetchWeights( (w) => {
-        console.log(w);
+      this.data.fetchWeights( (weights) => {
+        this.refreshData(weights);
       });
     });
 
     this.build();
-
     this.attachHandlers();
 
   }
@@ -24,13 +23,13 @@ export default class WeightTracker {
   build() {
 
     this.mainView = new WTMainView();
-    this.grapsView = new WTGraphsView();
+    this.graphsView = new WTGraphsView();
     this.inputView = new WTInputView();
 
     const fragment = document.createDocumentFragment();
 
     fragment.appendChild(this.mainView.node);
-    fragment.appendChild(this.grapsView.node);
+    fragment.appendChild(this.graphsView.node);
     fragment.appendChild(this.inputView.node);
 
     document.body.classList.remove('loading');
@@ -40,13 +39,17 @@ export default class WeightTracker {
   }
 
   attachHandlers() {
-    this.inputView.onUpdateWeight = this.onUpdateWeight;
+    this.inputView.onUpdateWeight = this.onUpdateWeight.bind(this);
   }
 
   onUpdateWeight(weight) {
-    debugger;
-    console.log(weight);
-    return false;
+    this.data.inputWeight(weight, (entry) => {
+      console.log(entry);
+    });
+  }
+
+  refreshData(weights){
+    this.graphsView.addWeights(weights);
   }
 
 }

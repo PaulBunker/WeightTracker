@@ -125,3 +125,9 @@ export default class WTData {
   }
 
 }
+
+if (DEVELOPMENT) {
+  if (module.hot) {
+    module.hot.accept();
+  }
+}
