@@ -43,13 +43,18 @@ export default class WeightTracker {
   }
 
   onUpdateWeight(weight) {
-    this.data.inputWeight(weight, (entry) => {
-      console.log(entry);
+    this.data.inputWeight(weight, () => {
+      this.data.fetchWeights( (weights) => {
+        this.refreshData(weights);
+      });
     });
   }
 
   refreshData(weights){
+
+    this.mainView.update(weights[weights.length-1].value);
     this.graphsView.addWeights(weights);
+
   }
 
 }

@@ -32,6 +32,7 @@ export default class WTInputView {
 
   handleWeightFormSubmit() {
     this.onUpdateWeight(this.weightInput.value);
+    this.weightInput.value = '';
     return false;
   }
 
